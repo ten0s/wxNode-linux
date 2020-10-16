@@ -18,7 +18,7 @@ RUN cd /src/node && \
     cd /
 RUN node --version
 
-RUN apt-get install --yes --force-yes doxygen gccxml libgtk2.0-dev libwebkitgtk-dev
+RUN apt-get install --yes --force-yes doxygen gccxml libgtk2.0-dev
 COPY wxWidgets /src/wxWidgets
 COPY etc/rungccxml.sh.patch /src/wxWidgets/
 COPY etc/strvararg.h.patch /src/wxWidgets/
