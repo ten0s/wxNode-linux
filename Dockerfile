@@ -9,8 +9,8 @@ RUN apt-get install --yes --force-yes \
 
 RUN mkdir -p /src
 
-COPY node /src/node
 RUN apt-get install --yes --force-yes libssl-dev
+COPY node /src/node
 RUN cd /src/node && \
     ./configure  && \
     make         && \
@@ -18,10 +18,10 @@ RUN cd /src/node && \
     cd /
 RUN node --version
 
+RUN apt-get install --yes --force-yes doxygen gccxml libgtk2.0-dev libwebkitgtk-dev
 COPY wxWidgets /src/wxWidgets
 COPY etc/rungccxml.sh.patch /src/wxWidgets/
 COPY etc/strvararg.h.patch /src/wxWidgets/
-RUN apt-get install --yes --force-yes doxygen gccxml libgtk2.0-dev
 RUN cd /src/wxWidgets                  && \
     mkdir build_gtk                    && \
     cd build_gtk                       && \
