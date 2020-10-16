@@ -1,23 +1,30 @@
 #!/bin/bash -e
 
+NODE_VER=v0.6.21
+WXWIDGETS_VER=v2.9.3
+
 if [[ ! -d node ]]; then
     git clone https://github.com/nodejs/node.git
     pushd node
-    git checkout v0.6.21
+    git checkout $NODE_VER
     popd
 fi
 
 if [[ ! -d wxWidgets ]]; then
     git clone https://github.com/wxWidgets/wxWidgets.git
     pushd wxWidgets
-    git checkout v2.9.3
+    git checkout $WXWIDGETS_VER
     popd
 fi
 
 if [[ ! -d wxNode ]]; then
     git clone git@github.com:ten0s/wxNode.git
+    pushd wxNode
+    npm install
+    popd
 fi
 
-docker build --rm --tag wx-test . | tee build.log
+docker build --rm --tag wxnode-$NODE_VER-$WXWIDGETS_VER . | tee build.log
 
-docker run -ti --rm -v $PWD/wxNode:/src/wxNode wx-test
+docker run -ti --rm -v $PWD/wxNode:/src/wxNode \
+       wxnode-$NODE_VER-$WXWIDGETS_VER
