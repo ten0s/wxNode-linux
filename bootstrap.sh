@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+DEBIAN_VER=6
 NODE_VER=v0.6.21
 WXWIDGETS_VER=v2.9.3
 
@@ -24,7 +25,7 @@ if [[ ! -d wxNode ]]; then
     popd
 fi
 
-docker build --rm --tag wxnode-$NODE_VER-$WXWIDGETS_VER . | tee build.log
+docker build --rm --tag wxnode-debian-$DEBIAN_VER-node-$NODE_VER-wx-$WXWIDGETS_VER . | tee build.log
 
 docker run -ti --rm -v $PWD/wxNode:/src/wxNode \
-       wxnode-$NODE_VER-$WXWIDGETS_VER
+       wxnode-debian-$DEBIAN_VER-node-$NODE_VER-wx-$WXWIDGETS_VER
